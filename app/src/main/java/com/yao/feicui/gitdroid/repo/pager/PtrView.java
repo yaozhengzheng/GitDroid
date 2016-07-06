@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid.hot.pager;
+package com.yao.feicui.gitdroid.repo.pager;
 
 /**
  * 下拉刷新视图抽象接口

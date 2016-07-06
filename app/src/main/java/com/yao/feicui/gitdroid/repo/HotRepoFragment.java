@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid.hot;
+package com.yao.feicui.gitdroid.repo;
 
 
 import android.os.Bundle;

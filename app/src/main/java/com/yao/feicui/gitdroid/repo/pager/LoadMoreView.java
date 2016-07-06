@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid.hot.pager;
+package com.yao.feicui.gitdroid.repo.pager;
 
 /**
  * Created by 16245 on 2016/07/01.

@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid.hot.pager;
+package com.yao.feicui.gitdroid.repo.pager;
 
 import com.hannesdorfmann.mosby.mvp.MvpView;
 

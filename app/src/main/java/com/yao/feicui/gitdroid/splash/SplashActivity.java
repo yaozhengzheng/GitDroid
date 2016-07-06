@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.yao.feicui.gitdroid.MainActivity;
+import com.yao.feicui.gitdroid.login.LoginActivity;
+import com.yao.feicui.gitdroid.main.MainActivity;
 import com.yao.feicui.gitdroid.R;
 import com.yao.feicui.gitdroid.commons.ActivityUtils;
 
@@ -36,12 +37,11 @@ public class SplashActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnLogin)
     public void login() {
-        Toast.makeText(this, "login", Toast.LENGTH_SHORT).show();
+        mActivityUtils.startActivity(LoginActivity.class);
     }
 
     @OnClick(R.id.btnEnter)
     public void enter() {
-        Toast.makeText(this, "enter", Toast.LENGTH_SHORT).show();
         mActivityUtils.startActivity(MainActivity.class);
     }
 }

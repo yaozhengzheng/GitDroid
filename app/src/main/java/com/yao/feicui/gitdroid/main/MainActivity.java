@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid;
+package com.yao.feicui.gitdroid.main;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,9 +11,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.yao.feicui.gitdroid.R;
 import com.yao.feicui.gitdroid.commons.ActivityUtils;
-import com.yao.feicui.gitdroid.hot.HotRepoFragment;
+import com.yao.feicui.gitdroid.login.LoginActivity;
+import com.yao.feicui.gitdroid.login.model.CurrentUser;
+import com.yao.feicui.gitdroid.repo.HotRepoFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,13 +34,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActivityUtils activityUtils;
     private MenuItem menuItem;
 
-    //热门仓库界面Fragment
+    // 热门仓库页面Fragment
     private HotRepoFragment hotRepoFragment;
+
+    private Button btnLogin;
+    private ImageView ivIcon;//用户头像
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -50,6 +60,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        ivIcon = (ImageView) ButterKnife.findById(navigationView.getHeaderView(0), R.id.ivIcon);
+        // 登陆
+        btnLogin = ButterKnife.findById(navigationView.getHeaderView(0), R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                activityUtils.startActivity(LoginActivity.class);
+            }
+        });
         // 默认第一个menu项为选中(最热门)
         menuItem = navigationView.getMenu().findItem(R.id.github_hot_repo);
         menuItem.setChecked(true);
@@ -58,6 +76,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replaceFragment(hotRepoFragment);
     }
 
+    @Override protected void onStart() {
+        super.onStart();
+        // 还没有授权登陆
+        if(CurrentUser.isEmpty()){
+            btnLogin.setText(R.string.login_github);
+            return;
+        }
+        // 已经授权登陆
+        btnLogin.setText(R.string.switch_account);
+        getSupportActionBar().setTitle(CurrentUser.getUser().getName());
+        // 设置用户头像
+        String photoUrl = CurrentUser.getUser().getAvatar();
+        ImageLoader.getInstance().displayImage(photoUrl,ivIcon);
+    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // 将默认选中项“手动”设置为false
