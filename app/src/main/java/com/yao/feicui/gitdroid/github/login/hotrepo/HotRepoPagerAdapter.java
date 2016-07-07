@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid.repo;
+package com.yao.feicui.gitdroid.github.login.hotrepo;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 
-import com.yao.feicui.gitdroid.repo.pager.RepoListFragment;
+import com.yao.feicui.gitdroid.github.login.hotrepo.model.Language;
+import com.yao.feicui.gitdroid.github.login.hotrepo.pager.LanguageFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,20 +24,18 @@ import java.util.List;
  */
 public class HotRepoPagerAdapter extends FragmentPagerAdapter {
 
-    private List<String> languages = new ArrayList<>();
+    private final List<Language> languages;
 
     public HotRepoPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
-        //这是测试数据
-        for (int i = 0; i < 10; i++) {
-            languages.add("java" + i);
-        }
+        // 从本地read出来的
+      languages=Language.getDefaultLanguage(context);
     }
 
 
     @Override
     public Fragment getItem(int position) {
-        return RepoListFragment.getInstance(languages.get(position));
+        return LanguageFragment.getInstance(languages.get(position));
     }
 
     @Override
@@ -47,7 +45,7 @@ public class HotRepoPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return languages.get(position);
+        return languages.get(position).getName();
     }
 
 }

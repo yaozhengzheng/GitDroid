@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid.repo;
+package com.yao.feicui.gitdroid.github.login.hotrepo;
 
 
 import android.os.Bundle;
@@ -48,9 +48,8 @@ public class HotRepoFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    @Override public void onDestroyView() {
+        super.onDestroyView();
         ButterKnife.unbind(this);
     }
 }

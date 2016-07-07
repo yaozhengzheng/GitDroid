@@ -1,6 +1,6 @@
 package com.yao.feicui.gitdroid.network;
 
-import com.yao.feicui.gitdroid.login.model.CurrentUser;
+import com.yao.feicui.gitdroid.model.CurrentUser;
 
 import java.io.IOException;
 

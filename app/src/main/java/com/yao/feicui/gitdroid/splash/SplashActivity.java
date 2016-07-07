@@ -3,10 +3,9 @@ package com.yao.feicui.gitdroid.splash;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.yao.feicui.gitdroid.login.LoginActivity;
-import com.yao.feicui.gitdroid.main.MainActivity;
+import com.yao.feicui.gitdroid.github.login.login.LoginActivity;
+import com.yao.feicui.gitdroid.github.login.main.MainActivity;
 import com.yao.feicui.gitdroid.R;
 import com.yao.feicui.gitdroid.commons.ActivityUtils;
 

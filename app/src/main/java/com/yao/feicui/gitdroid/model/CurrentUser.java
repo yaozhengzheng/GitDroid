@@ -1,4 +1,4 @@
-package com.yao.feicui.gitdroid.login.model;
+package com.yao.feicui.gitdroid.model;
 
 /**
  * Created by 16245 on 2016/07/06.

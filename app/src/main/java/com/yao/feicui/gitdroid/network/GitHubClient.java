@@ -1,13 +1,15 @@
 package com.yao.feicui.gitdroid.network;
 
-import com.yao.feicui.gitdroid.login.model.AccessTokenResult;
-import com.yao.feicui.gitdroid.login.model.User;
+import com.yao.feicui.gitdroid.github.login.hotrepo.pager.model.RepoResult;
+import com.yao.feicui.gitdroid.model.AccessTokenResult;
+import com.yao.feicui.gitdroid.model.User;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
+import retrofit2.http.Query;
 
 /**
  * 需要添加并且导包
@@ -40,5 +42,10 @@ public class GitHubClient implements GitHubApi{
     }
     @Override public Call<User> getUserInfo() {
         return gitHubApi.getUserInfo();
+    }
+
+    @Override
+    public Call<RepoResult> searchRepo(@Query("q") String query, @Query("page") int pageId) {
+        return gitHubApi.searchRepo(query,pageId);
     }
 }
