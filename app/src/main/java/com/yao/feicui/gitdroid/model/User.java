@@ -2,10 +2,12 @@ package com.yao.feicui.gitdroid.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by 16245 on 2016/07/06.
  */
-public class User {
+public class User implements Serializable{
 
     // 登录所用的账号
     private String login;

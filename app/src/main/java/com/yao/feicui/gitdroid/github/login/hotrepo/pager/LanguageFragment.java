@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.yao.feicui.gitdroid.components.FooterView;
 import com.yao.feicui.gitdroid.github.login.hotrepo.model.Language;
 import com.yao.feicui.gitdroid.github.login.hotrepo.pager.model.Repo;
 import com.yao.feicui.gitdroid.github.login.hotrepo.pager.view.LanguageView;
+import com.yao.feicui.gitdroid.github.login.repo.RepoInfoActivity;
 
 import java.util.List;
 
@@ -31,6 +33,17 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 /**
+ *  本Fragment的主要内容是一个ListView，我们通过GitHub API查询某种编程语言最热门的开源库，
+ * 查询结果根据star数量排序。此GitHub API有分页特性，分页索引以1开始，每页默认有30项。
+ * 更多内容可以查阅GitHub API文档。
+ * <p/>
+ * <p/>
+ * 我们使用了三方库android-Ultra-Pull-To-Refresh来实现下拉刷新特性，这是一位中国程序员构建的优秀的开源库。
+ * 你可以自己尝试使用google的SwipeRefreshLayout来替代，这一工作应该是很简单的。
+ * <p/>
+ * <p/>
+ * 至于无穷滚动特性，有很多不同的开源实现。我们使用了一个微型库Mugen的实现来节省时间，
+ * 当然，即使从头自己来实现这一功能也并不困难。
  * Created by 16245 on 2016/07/01.
  */
 public class LanguageFragment extends MvpFragment<LanguageView,LanguagePresenter> implements LanguageView {
@@ -98,7 +111,15 @@ public class LanguageFragment extends MvpFragment<LanguageView,LanguagePresenter
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         listView.setAdapter(adapter);
-        // 下拉刷新
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //获取当前click的仓库
+                Repo repo=adapter.getItem(position);
+                RepoInfoActivity.open(getContext(), repo);
+            }
+        });
+        // 初始下拉刷新
         initPullToRefresh();
         // 初始上拉加载
         initLoadMoreScroll();

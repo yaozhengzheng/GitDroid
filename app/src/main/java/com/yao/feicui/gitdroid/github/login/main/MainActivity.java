@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yao.feicui.gitdroid.R;
 import com.yao.feicui.gitdroid.commons.ActivityUtils;
+import com.yao.feicui.gitdroid.favorite.FavoriteFragment;
 import com.yao.feicui.gitdroid.github.login.login.LoginActivity;
 import com.yao.feicui.gitdroid.model.CurrentUser;
 import com.yao.feicui.gitdroid.github.login.hotrepo.HotRepoFragment;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // 热门仓库页面Fragment
     private HotRepoFragment hotRepoFragment;
+
+    // 我的收藏页面
+    private FavoriteFragment favoriteFragment;
 
     private Button btnLogin;
     private ImageView ivIcon;//用户头像
@@ -98,15 +102,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         switch (item.getItemId()) {
             case R.id.github_hot_repo:
-                activityUtils.showToast(R.string.hot_repo);
+                if (! hotRepoFragment.isAdded()) {
+                    replaceFragment(hotRepoFragment);
+                }
                 break;
             case R.id.arsenal_my_repo:
-                activityUtils.showToast(R.string.my_repo);
+                if (favoriteFragment == null) favoriteFragment = new FavoriteFragment();
+                if (! favoriteFragment.isAdded()) {
+                    replaceFragment(favoriteFragment);
+                }
                 break;
             case R.id.tips_daily:
                 activityUtils.showToast(R.string.tips_daily);
                 break;
         }
+        drawerLayout.post(new Runnable() {
+            @Override public void run() {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
         // 返回true，代表将该菜单项变为checked状态
         return true;
     }
